@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cards", "Cards\Cards.csproj", "{30DC7BB6-456D-42B0-BE2A-01D5F2B8A8CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{23AC32AB-EC56-4672-A30A-4D65BCC4BD4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30DC7BB6-456D-42B0-BE2A-01D5F2B8A8CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DC7BB6-456D-42B0-BE2A-01D5F2B8A8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DC7BB6-456D-42B0-BE2A-01D5F2B8A8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DC7BB6-456D-42B0-BE2A-01D5F2B8A8CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23AC32AB-EC56-4672-A30A-4D65BCC4BD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23AC32AB-EC56-4672-A30A-4D65BCC4BD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23AC32AB-EC56-4672-A30A-4D65BCC4BD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23AC32AB-EC56-4672-A30A-4D65BCC4BD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B80D1CB2-D56B-4A14-8146-72843E0D6B58}
+	EndGlobalSection
+EndGlobal
