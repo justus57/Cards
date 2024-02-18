@@ -57,10 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.Designer.cs">
+    <Compile Include="Cards.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Card.edmx</DependentUpon>
+      <DependentUpon>Cards.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataAcces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,9 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Card.edmx">
+    <EntityDeploy Include="Cards.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Card.Designer.cs</LastGenOutput>
+      <LastGenOutput>Cards.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="packages.config" />
   </ItemGroup>

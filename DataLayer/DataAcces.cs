@@ -12,14 +12,15 @@ namespace DataLayer
 {
     public class DataAccess //: IDataAccess
     {
-        private readonly CardEntities _db;
+        private readonly CARDEntities1 _db ;
+     
 
         /// <summary>
         /// Initializes a new instance of the DataRepository class
         /// </summary>
         public DataAccess(string conn)
         {
-            _db = new CardEntities(conn);
+            _db = new CARDEntities1(conn);
         }
 
         /// <summary>

@@ -6,22 +6,23 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BL
 {
-    /// <summary>
-    /// Author: Justus
-    /// </summary>
+
     #region Enum
     //if you have multiple db
     public enum DatabaseType { Oracle = 0, MsSql = 1 }
     public enum UserRole
     {
-        Member,
-        Admin
+        Member = 0,
+        Admin = 1
     }
 
     public enum CardStatus
@@ -43,7 +44,7 @@ namespace BL
         public DatabaseType dbType { get; set; }
         public string Error { get; set; }
 
-    
+
         public DbConnDetails()
         {
             dbType = DatabaseType.MsSql;
@@ -105,7 +106,7 @@ namespace BL
     {
         public string User { get; set; }
         public string Password { get; set; }
-   
+
     }
 
     public class TokenResponse
@@ -116,10 +117,10 @@ namespace BL
 
     public class Response
     {
-        public string status { get; set; }
+        public HttpStatusCode status { get; set; }
         public string Message { get; set; }
-        public string Body { get; set; }
-     
+        public object Body { get; set; }
+
     }
 
     public class User
@@ -154,9 +155,8 @@ namespace BL
         [Required]
         public CardStatus Status { get; set; }
 
-        [ForeignKey("User")]
         public int UserId { get; set; }
-
+        public DateTime CreationDate { get; set; }
         public virtual User User { get; set; }
     }
 
@@ -165,11 +165,163 @@ namespace BL
     public class Datamap
     {
         public DataAccess _da;
+        private List<CARDS> test;
+
         public Datamap(string conn)
         {
             _da = new DataAccess(conn);
         }
 
+        #region Access
+
+        public bool HasAccess(int userid, int cardid)
+        {
+
+            if (isAdmin(userid))
+            {
+                test = _da.Search<CARDS>(x => x.CARDID == cardid).ToList();
+            }
+            else
+            {
+                test = _da.Search<CARDS>(x => x.CARDID == cardid & x.STATUSID == 3 & x.USERID == userid).ToList();
+            }
+
+
+
+            if (test.Count > 0)
+            {
+                return true;
+            }
+            return false;
+
+            //Include("MENU").ToList()
+        }
+
+        private bool isAdmin(int userid)
+        {
+            var IsAdmin = UserList().Where(X => X.UserId == userid).ToList();
+            if (IsAdmin.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion
+        #region Cards
+        private Card AppObject(CARDS u)
+        {
+            return new Card
+            {
+                Color = u.COLOR,
+                Name = u.NAME,
+                Description = u.DESCRIPTION,
+                CardId = u.CARDID,
+                UserId = (int)u.USERID,
+                Status = (CardStatus)u.STATUSID,
+                CreationDate = (DateTime)u.CREATIONDATE
+
+            };
+        }
+        private CARDS CardObj(Card u)
+        {
+            return new CARDS
+            {
+                COLOR = u.Color,
+                NAME = u.Name,
+                DESCRIPTION = u.Description,
+                STATUSID = (int)CardStatus.ToDo,
+                USERID = u.UserId,
+
+
+            };
+        }
+
+        private int? GetuserId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Card> CardList()
+        {
+            return (from p in _da.Fetch<CARDS>().ToList() select AppObject(p)).ToList();
+        }
+
+        public Card SaveCard(Card o)
+        {
+
+            CARDS u = CardObj(o);
+            _da.Save(u);
+            return AppObject(u);
+        }
+        public string CreateCard(Card card)
+        {
+            try
+            {
+                //with out mekarchecker process
+                var sql = $"INSERT INTO [dbo].[CARDS] ([NAME], [DESCRIPTION], [COLOR], [STATUSID], [USERID], [CREATIONDATE]) VALUES ('{card.Name}', '{card.Description}', '{card.Color}', { (int)card.Status }, {card.UserId}, GETDATE())";
+                _da.Exec(sql);
+                // can create a maker checker  below
+                return "success";
+            }
+            catch (Exception es)
+            {
+                return es.ToString();
+            }
+        }
+        #endregion
+
+        public User GetUserFromToken(string token)
+        {
+
+
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken != null)
+                {
+                    var userEmail = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email)?.Value;
+
+                    if (!string.IsNullOrEmpty(userEmail))
+                    {
+                        // Retrieve user information based on the email
+                        var user = UserList().Where(u => u.Email == userEmail).FirstOrDefault();
+
+                        if (user != null)
+                        {
+                            return user;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return null;
+        }
+        #region User
+
+        private User UserObject(USERS u)
+        {
+            return new User
+            {
+                UserId = u.USERID,
+                Email = u.EMAIL,
+                Password = u.PASSWORD,
+                Role = (UserRole)Enum.Parse(typeof(UserRole), u.ROLE)
+
+            };
+        }
+        public List<User> UserList()
+        {
+            return (from p in _da.Fetch<USERS>().ToList() select UserObject(p)).ToList();
+        }
+
+
+        #endregion
         /// <summary>
         /// used to excute all Sql Queries to Database
         /// </summary>
@@ -198,6 +350,9 @@ namespace BL
         {
             _da.Exec(sql, param);
         }
+
+
+
 
     }
 }

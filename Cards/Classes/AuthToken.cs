@@ -26,7 +26,7 @@ namespace Cards.Classes
             {
             var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user),
+            new Claim(ClaimTypes.Email, user),
            // new Claim(ClaimTypes.Role, role)
         };
 
@@ -78,9 +78,9 @@ namespace Cards.Classes
                     return false;
                 }
             }
+    
 
-
-        }
+    }
         
         
     

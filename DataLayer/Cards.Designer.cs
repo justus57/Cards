@@ -19,8 +19,8 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("CardModel", "FK__CARDS__STATUSID__286302EC", "STATUS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DataLayer.STATUS), "CARDS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataLayer.CARDS), true)]
-[assembly: EdmRelationshipAttribute("CardModel", "FK__CARDS__USERID__29572725", "USERS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DataLayer.USERS), "CARDS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataLayer.CARDS), true)]
+[assembly: EdmRelationshipAttribute("CARDModel", "FK__CARDS__STATUSID__286302EC", "STATUS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DataLayer.STATUS), "CARDS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataLayer.CARDS), true)]
+[assembly: EdmRelationshipAttribute("CARDModel", "FK__CARDS__USERID__29572725", "USERS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DataLayer.USERS), "CARDS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataLayer.CARDS), true)]
 
 #endregion
 
@@ -31,31 +31,34 @@ namespace DataLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class CardEntities : ObjectContext
+    public partial class CARDEntities1 : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new CardEntities object using the connection string found in the 'CardEntities' section of the application configuration file.
+        /// Initializes a new CARDEntities1 object using the connection string found in the 'CARDEntities1' section of the application configuration file.
         /// </summary>
-        public CardEntities() : base("name=CardEntities", "CardEntities")
+        public CARDEntities1() : base("name=CARDEntities1", "CARDEntities1")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CardEntities object.
+        /// Initialize a new CARDEntities1 object.
         /// </summary>
-        public CardEntities(string connectionString) : base(connectionString, "CardEntities")
+        public CARDEntities1(string connectionString) : base(connectionString, "CARDEntities1")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CardEntities object.
+        /// Initialize a new CARDEntities1 object.
         /// </summary>
-        public CardEntities(EntityConnection connection) : base(connection, "CardEntities")
+        public CARDEntities1(EntityConnection connection) : base(connection, "CARDEntities1")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
@@ -156,7 +159,7 @@ namespace DataLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CardModel", Name="CARDS")]
+    [EdmEntityTypeAttribute(NamespaceName="CARDModel", Name="CARDS")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class CARDS : EntityObject
@@ -326,6 +329,30 @@ namespace DataLayer
         private Nullable<global::System.Int32> _USERID;
         partial void OnUSERIDChanging(Nullable<global::System.Int32> value);
         partial void OnUSERIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CREATIONDATE
+        {
+            get
+            {
+                return _CREATIONDATE;
+            }
+            set
+            {
+                OnCREATIONDATEChanging(value);
+                ReportPropertyChanging("CREATIONDATE");
+                _CREATIONDATE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CREATIONDATE");
+                OnCREATIONDATEChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CREATIONDATE;
+        partial void OnCREATIONDATEChanging(Nullable<global::System.DateTime> value);
+        partial void OnCREATIONDATEChanged();
 
         #endregion
 
@@ -338,16 +365,16 @@ namespace DataLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CardModel", "FK__CARDS__STATUSID__286302EC", "STATUS")]
+        [EdmRelationshipNavigationPropertyAttribute("CARDModel", "FK__CARDS__STATUSID__286302EC", "STATUS")]
         public STATUS STATUS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CardModel.FK__CARDS__STATUSID__286302EC", "STATUS").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CARDModel.FK__CARDS__STATUSID__286302EC", "STATUS").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CardModel.FK__CARDS__STATUSID__286302EC", "STATUS").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CARDModel.FK__CARDS__STATUSID__286302EC", "STATUS").Value = value;
             }
         }
         /// <summary>
@@ -359,13 +386,13 @@ namespace DataLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CardModel.FK__CARDS__STATUSID__286302EC", "STATUS");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATUS>("CARDModel.FK__CARDS__STATUSID__286302EC", "STATUS");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<STATUS>("CardModel.FK__CARDS__STATUSID__286302EC", "STATUS", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<STATUS>("CARDModel.FK__CARDS__STATUSID__286302EC", "STATUS", value);
                 }
             }
         }
@@ -376,16 +403,16 @@ namespace DataLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CardModel", "FK__CARDS__USERID__29572725", "USERS")]
+        [EdmRelationshipNavigationPropertyAttribute("CARDModel", "FK__CARDS__USERID__29572725", "USERS")]
         public USERS USERS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CardModel.FK__CARDS__USERID__29572725", "USERS").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CARDModel.FK__CARDS__USERID__29572725", "USERS").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CardModel.FK__CARDS__USERID__29572725", "USERS").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CARDModel.FK__CARDS__USERID__29572725", "USERS").Value = value;
             }
         }
         /// <summary>
@@ -397,13 +424,13 @@ namespace DataLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CardModel.FK__CARDS__USERID__29572725", "USERS");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<USERS>("CARDModel.FK__CARDS__USERID__29572725", "USERS");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<USERS>("CardModel.FK__CARDS__USERID__29572725", "USERS", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<USERS>("CARDModel.FK__CARDS__USERID__29572725", "USERS", value);
                 }
             }
         }
@@ -415,7 +442,7 @@ namespace DataLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CardModel", Name="STATUS")]
+    [EdmEntityTypeAttribute(NamespaceName="CARDModel", Name="STATUS")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class STATUS : EntityObject
@@ -499,18 +526,18 @@ namespace DataLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CardModel", "FK__CARDS__STATUSID__286302EC", "CARDS")]
+        [EdmRelationshipNavigationPropertyAttribute("CARDModel", "FK__CARDS__STATUSID__286302EC", "CARDS")]
         public EntityCollection<CARDS> CARDS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CARDS>("CardModel.FK__CARDS__STATUSID__286302EC", "CARDS");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CARDS>("CARDModel.FK__CARDS__STATUSID__286302EC", "CARDS");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CARDS>("CardModel.FK__CARDS__STATUSID__286302EC", "CARDS", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CARDS>("CARDModel.FK__CARDS__STATUSID__286302EC", "CARDS", value);
                 }
             }
         }
@@ -522,7 +549,7 @@ namespace DataLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CardModel", Name="USERS")]
+    [EdmEntityTypeAttribute(NamespaceName="CARDModel", Name="USERS")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class USERS : EntityObject
@@ -533,10 +560,12 @@ namespace DataLayer
         /// Create a new USERS object.
         /// </summary>
         /// <param name="uSERID">Initial value of the USERID property.</param>
-        public static USERS CreateUSERS(global::System.Int32 uSERID)
+        /// <param name="eMAIL">Initial value of the EMAIL property.</param>
+        public static USERS CreateUSERS(global::System.Int32 uSERID, global::System.String eMAIL)
         {
             USERS uSERS = new USERS();
             uSERS.USERID = uSERID;
+            uSERS.EMAIL = eMAIL;
             return uSERS;
         }
 
@@ -574,7 +603,7 @@ namespace DataLayer
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String EMAIL
         {
@@ -586,7 +615,7 @@ namespace DataLayer
             {
                 OnEMAILChanging(value);
                 ReportPropertyChanging("EMAIL");
-                _EMAIL = StructuralObject.SetValidValue(value, true);
+                _EMAIL = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("EMAIL");
                 OnEMAILChanged();
             }
@@ -642,6 +671,30 @@ namespace DataLayer
         private global::System.String _ROLE;
         partial void OnROLEChanging(global::System.String value);
         partial void OnROLEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CREATIONDATE
+        {
+            get
+            {
+                return _CREATIONDATE;
+            }
+            set
+            {
+                OnCREATIONDATEChanging(value);
+                ReportPropertyChanging("CREATIONDATE");
+                _CREATIONDATE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CREATIONDATE");
+                OnCREATIONDATEChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CREATIONDATE;
+        partial void OnCREATIONDATEChanging(Nullable<global::System.DateTime> value);
+        partial void OnCREATIONDATEChanged();
 
         #endregion
 
@@ -654,18 +707,18 @@ namespace DataLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CardModel", "FK__CARDS__USERID__29572725", "CARDS")]
+        [EdmRelationshipNavigationPropertyAttribute("CARDModel", "FK__CARDS__USERID__29572725", "CARDS")]
         public EntityCollection<CARDS> CARDS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CARDS>("CardModel.FK__CARDS__USERID__29572725", "CARDS");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CARDS>("CARDModel.FK__CARDS__USERID__29572725", "CARDS");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CARDS>("CardModel.FK__CARDS__USERID__29572725", "CARDS", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CARDS>("CARDModel.FK__CARDS__USERID__29572725", "CARDS", value);
                 }
             }
         }

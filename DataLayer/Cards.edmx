@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CARDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CARDModelStoreContainer">
+          <EntitySet Name="CARDS" EntityType="CARDModel.Store.CARDS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="STATUS" EntityType="CARDModel.Store.STATUS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USERS" EntityType="CARDModel.Store.USERS" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__CARDS__STATUSID__286302EC" Association="CARDModel.Store.FK__CARDS__STATUSID__286302EC">
+            <End Role="STATUS" EntitySet="STATUS" />
+            <End Role="CARDS" EntitySet="CARDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARDS__USERID__29572725" Association="CARDModel.Store.FK__CARDS__USERID__29572725">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="CARDS" EntitySet="CARDS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CARDS">
+          <Key>
+            <PropertyRef Name="CARDID" />
+          </Key>
+          <Property Name="CARDID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="COLOR" Type="nvarchar" MaxLength="20" />
+          <Property Name="STATUSID" Type="int" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="CREATIONDATE" Type="date" />
+        </EntityType>
+        <EntityType Name="STATUS">
+          <Key>
+            <PropertyRef Name="STATUSID" />
+          </Key>
+          <Property Name="STATUSID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="STATUSNAME" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="255" />
+          <Property Name="ROLE" Type="nvarchar" MaxLength="20" />
+          <Property Name="CREATIONDATE" Type="date" />
+        </EntityType>
+        <Association Name="FK__CARDS__STATUSID__286302EC">
+          <End Role="STATUS" Type="CARDModel.Store.STATUS" Multiplicity="0..1" />
+          <End Role="CARDS" Type="CARDModel.Store.CARDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATUS">
+              <PropertyRef Name="STATUSID" />
+            </Principal>
+            <Dependent Role="CARDS">
+              <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARDS__USERID__29572725">
+          <End Role="USERS" Type="CARDModel.Store.USERS" Multiplicity="0..1" />
+          <End Role="CARDS" Type="CARDModel.Store.CARDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="CARDS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CARDModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CARDEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARDS" EntityType="CARDModel.CARDS" />
+          <EntitySet Name="STATUS" EntityType="CARDModel.STATUS" />
+          <EntitySet Name="USERS" EntityType="CARDModel.USERS" />
+          <AssociationSet Name="FK__CARDS__STATUSID__286302EC" Association="CARDModel.FK__CARDS__STATUSID__286302EC">
+            <End Role="STATUS" EntitySet="STATUS" />
+            <End Role="CARDS" EntitySet="CARDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARDS__USERID__29572725" Association="CARDModel.FK__CARDS__USERID__29572725">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="CARDS" EntitySet="CARDS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CARDS">
+          <Key>
+            <PropertyRef Name="CARDID" />
+          </Key>
+          <Property Name="CARDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="COLOR" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="STATUSID" Type="Int32" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="CREATIONDATE" Type="DateTime" />
+          <NavigationProperty Name="STATUS" Relationship="CARDModel.FK__CARDS__STATUSID__286302EC" FromRole="CARDS" ToRole="STATUS" />
+          <NavigationProperty Name="USERS" Relationship="CARDModel.FK__CARDS__USERID__29572725" FromRole="CARDS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="STATUS">
+          <Key>
+            <PropertyRef Name="STATUSID" />
+          </Key>
+          <Property Name="STATUSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATUSNAME" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CARDS" Relationship="CARDModel.FK__CARDS__STATUSID__286302EC" FromRole="STATUS" ToRole="CARDS" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ROLE" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="CREATIONDATE" Type="DateTime" />
+          <NavigationProperty Name="CARDS" Relationship="CARDModel.FK__CARDS__USERID__29572725" FromRole="USERS" ToRole="CARDS" />
+        </EntityType>
+        <Association Name="FK__CARDS__STATUSID__286302EC">
+          <End Role="STATUS" Type="CARDModel.STATUS" Multiplicity="0..1" />
+          <End Role="CARDS" Type="CARDModel.CARDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATUS">
+              <PropertyRef Name="STATUSID" />
+            </Principal>
+            <Dependent Role="CARDS">
+              <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARDS__USERID__29572725">
+          <End Role="USERS" Type="CARDModel.USERS" Multiplicity="0..1" />
+          <End Role="CARDS" Type="CARDModel.CARDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="CARDS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CARDModelStoreContainer" CdmEntityContainer="CARDEntities1">
+          <EntitySetMapping Name="CARDS">
+            <EntityTypeMapping TypeName="CARDModel.CARDS">
+              <MappingFragment StoreEntitySet="CARDS">
+                <ScalarProperty Name="CARDID" ColumnName="CARDID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="CREATIONDATE" ColumnName="CREATIONDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATUS">
+            <EntityTypeMapping TypeName="CARDModel.STATUS">
+              <MappingFragment StoreEntitySet="STATUS">
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="STATUSNAME" ColumnName="STATUSNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="CARDModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="CREATIONDATE" ColumnName="CREATIONDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Cards">
+        <EntityTypeShape EntityType="CARDModel.CARDS" Width="1.5" PointX="3" PointY="1" Height="2.7494921875000005" IsExpanded="true" />
+        <EntityTypeShape EntityType="CARDModel.STATUS" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CARDModel.USERS" Width="1.5" PointX="0.75" PointY="5.25" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="CARDModel.FK__CARDS__STATUSID__286302EC" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.297841796875" />
+          <ConnectorPoint PointX="3" PointY="2.297841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="CARDModel.FK__CARDS__USERID__29572725" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.3362939453125" />
+          <ConnectorPoint PointX="3.75" PointY="6.3362939453125" />
+          <ConnectorPoint PointX="3.75" PointY="3.7494921875000005" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
